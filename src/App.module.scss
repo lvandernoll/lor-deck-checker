@@ -1,0 +1,28 @@
+@import 'styles/config';
+
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: $white;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 $defaultSpacing;
+  background: $main;
+  height: $headerHeight;
+}
+
+.content {
+  padding: $defaultSpacing;
+  height: calc(100vh - #{$headerHeight + $footerHeight});
+}
+
+.footer {
+  background: $secondary;
+  height: $footerHeight;
+}

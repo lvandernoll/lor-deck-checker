@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "LoR Deck Checker",
+  "name": "Legends of Runeterra Deck Checker",
   "icons": [
     {
       "src": "favicon.ico",
