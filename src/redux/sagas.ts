@@ -1,18 +1,18 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import { CardOptionsAction } from './interfaces';
-import { getCardOptions } from 'api';
-import { requestCardOptionsSuccess, requestCardOptionsFailed, REQUEST_CARD_OPTIONS } from './actions';
+import { SetsDataAction } from './interfaces';
+import { getSetsData } from 'api';
+import { requestSetsDataSuccess, requestSetsDataFailed, REQUEST_SETS_DATA } from './actions';
 
-function* fetchCardOptions(action: CardOptionsAction) {
+function* fetchSetsData(action: SetsDataAction) {
   try {
-    const cardOptions = yield call(getCardOptions);
-    yield put(requestCardOptionsSuccess(cardOptions));
+    const setsData = yield call(getSetsData);
+    yield put(requestSetsDataSuccess(setsData));
   } catch(e) {
     console.error(e);
-    yield put(requestCardOptionsFailed('Request failed'));
+    yield put(requestSetsDataFailed('Request failed'));
   }
 }
 
 export default function* mySaga() {
-  yield takeLatest(REQUEST_CARD_OPTIONS, fetchCardOptions);
+  yield takeLatest(REQUEST_SETS_DATA, fetchSetsData);
 }

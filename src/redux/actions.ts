@@ -1,10 +1,10 @@
-import { CardOptions } from 'interfaces';
+import { Set } from 'interfaces';
 
-export const REQUEST_CARD_OPTIONS         = 'REQUEST_CARD_OPTIONS';
-export const REQUEST_CARD_OPTIONS_SUCCESS = 'REQUEST_CARD_OPTIONS_SUCCESS';
-export const REQUEST_CARD_OPTIONS_FAILED  = 'REQUEST_CARD_OPTIONS_FAILED';
+export const REQUEST_SETS_DATA         = 'REQUEST_SETS_DATA';
+export const REQUEST_SETS_DATA_SUCCESS = 'REQUEST_SETS_DATA_SUCCESS';
+export const REQUEST_SETS_DATA_FAILED  = 'REQUEST_SETS_DATA_FAILED';
 
 
-export const requestCardOptions = () => ({ type: REQUEST_CARD_OPTIONS });
-export const requestCardOptionsSuccess = (cardOptions: CardOptions) => ({ type: REQUEST_CARD_OPTIONS_SUCCESS, payload: { cardOptions } });
-export const requestCardOptionsFailed = (errorMessage: string) => ({ type: REQUEST_CARD_OPTIONS_FAILED, payload: { errorMessage } });
+export const requestSetsData = () => ({ type: REQUEST_SETS_DATA });
+export const requestSetsDataSuccess = (setsData: Set[]) => ({ type: REQUEST_SETS_DATA_SUCCESS, payload: { setsData } });
+export const requestSetsDataFailed = (errorMessage: string) => ({ type: REQUEST_SETS_DATA_FAILED, payload: { errorMessage } });

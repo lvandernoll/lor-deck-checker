@@ -1,9 +1,9 @@
-import { CardOptions } from 'interfaces';
+import { Set } from 'interfaces';
 
-export interface CardOptionsAction {
+export interface SetsDataAction {
   type: string,
   payload: {
     errorMessage?: string,
-    cardOptions?: CardOptions,
+    setsData?: Set[],
   },
 }

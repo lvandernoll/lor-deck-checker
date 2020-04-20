@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import { CardOptionsState, cardOptionsReducer } from './cardOptions';
+import { SetsDataState, setsDataReducer } from './setsData';
 
 export interface State {
-  cardOptions: CardOptionsState,
+  setsData: SetsDataState,
 }
 
 export default combineReducers<State>({
-  cardOptions: cardOptionsReducer,
+  setsData: setsDataReducer,
 });
