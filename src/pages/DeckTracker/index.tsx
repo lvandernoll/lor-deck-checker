@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { decode, Card as LoRCard } from 'lor-deckcode';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExchangeAlt } from '@fortawesome/free-solid-svg-icons';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { DeckCard, Set, Card } from 'interfaces';
@@ -7,6 +9,7 @@ import { State } from 'redux/reducers';
 import { requestSetsData } from 'redux/actions';
 import { SetsDataState } from 'redux/reducers/setsData';
 import DeckDisplay from 'components/DeckDisplay';
+import styles from './DeckTracker.module.scss';
 
 interface Props {
   setsDataState: SetsDataState,
@@ -42,10 +45,30 @@ const DeckTrackerPage: React.FC<Props> = ({ setsDataState, requestSetsData }) =>
     setDeckCards(deck);
   }, [deckCode, setsDataState]);
 
+
+  const removeCard = (cardToMove: DeckCard) => {
+    let cardInDeck: DeckCard;
+    deckCards.forEach((card: DeckCard) => {
+      if(cardToMove === card) {
+        cardInDeck = card;
+        console.log(cardInDeck);
+        return;
+      }
+    });
+  }
+
   return (
     <>
       {deckCode}
-      <DeckDisplay cards={deckCards} />
+      <div className={styles.decks}>
+        <DeckDisplay title={'Deck'} cards={deckCards} removeCard={removeCard} />
+        <div className={styles.divider}>
+          <span className={styles.line} />
+          <FontAwesomeIcon className={styles.icon} icon={faExchangeAlt} />
+          <span className={styles.line} />
+        </div>
+        <DeckDisplay title={'Played'} cards={[]} />
+      </div>
     </>
   )
 }

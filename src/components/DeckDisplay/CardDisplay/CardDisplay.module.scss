@@ -7,10 +7,13 @@
 @value PilltoverZaun: #{$pilltoverZaun};
 @value Freljord: #{$freljord};
 
+.fullWrap {
+  position: relative;
+}
+
 .wrapper {
   display: flex;
-  width: 345px;
-  margin-bottom: 15px;
+  width: $cardWidth;
   color: $white;
   font-weight: bold;
   position: relative;
@@ -125,6 +128,48 @@
   color: #DA9E55;
   background: #211D1E;
   border-radius: 0 5px 5px 0;
+}
+
+.animationWrapper {
+  position: absolute;
+  pointer-events: none;
+  cursor: auto;
+  top: 0;
+  left: 0;
+}
+
+.moveRight, .moveLeft {
+  position: absolute;
+}
+
+.moveRight {
+  animation: moveRight .5s forwards;
+}
+
+.moveLeft {
+  animation: moveLeft .5s;
+}
+
+@keyframes moveRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(200px);
+    opacity: 0;
+  }
+}
+
+@keyframes moveLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-200px);
+    opacity: 0;
+  }
 }
 
 @keyframes spin {
