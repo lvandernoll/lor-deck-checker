@@ -5,23 +5,8 @@
 }
 
 .divider {
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0 30px;
+  margin: auto 50px;
   font-size: 2.5rem;
-  color: $black;
-  padding-top: 50px;
-}
-
-.icon {
-  margin: 20px 0;
-}
-
-.line {
-  background: $black;
-  height: 100%;
-  width: 2px;
+  color: $accent;
+  padding-top: 39px;
 }

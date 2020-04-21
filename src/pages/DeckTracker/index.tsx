@@ -84,18 +84,13 @@ const DeckTrackerPage: React.FC<Props> = ({ setsDataState, requestSetsData }) =>
     moveCard(cardToMove, [...playedCards], [...deckCards], setPlayedCards, setDeckCards);
 
   return (
-    <>
-      {deckCode}
-      <div className={styles.decks}>
-        <DeckDisplay title={'Deck'} cards={deckCards} removeCard={playCard} />
-        <div className={styles.divider}>
-          <span className={styles.line} />
-          <FontAwesomeIcon className={styles.icon} icon={faExchangeAlt} />
-          <span className={styles.line} />
-        </div>
-        <DeckDisplay title={'Played'} cards={playedCards} removeCard={returnCard} moveLeft />
+    <div className={styles.decks}>
+      <DeckDisplay title={'Deck'} cards={deckCards} removeCard={playCard} />
+      <div className={styles.divider}>
+        <FontAwesomeIcon icon={faExchangeAlt} />
       </div>
-    </>
+      <DeckDisplay title={'Played'} cards={playedCards} removeCard={returnCard} moveLeft />
+    </div>
   )
 }
 

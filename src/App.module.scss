@@ -1,11 +1,11 @@
 @import 'styles/config';
 
 .wrapper {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  color: $white;
+  color: $whiteText;
 }
 
 .header {
@@ -13,16 +13,10 @@
   align-items: center;
   justify-content: center;
   padding: 0 $defaultSpacing;
-  background: $main;
   height: $headerHeight;
 }
 
 .content {
   padding: $defaultSpacing;
-  min-height: calc(100vh - #{$headerHeight + $footerHeight});
-}
-
-.footer {
-  background: $secondary;
-  height: $footerHeight;
+  min-height: calc(100vh - #{$headerHeight});
 }

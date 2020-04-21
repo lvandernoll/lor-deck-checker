@@ -14,7 +14,6 @@ const App: React.FC = () => {
         <div className={styles.content}>
           <DeckTrackerPage />
         </div>
-        <footer className={styles.footer} />
       </div>
     </Provider>
   )

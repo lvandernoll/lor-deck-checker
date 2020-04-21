@@ -1,7 +1,7 @@
 @import 'styles/config';
 
 .title {
-  margin: 10px 0;
+  margin-bottom: 10px;
 }
 
 .deck {
@@ -9,6 +9,29 @@
   flex-direction: column;
   align-items: center;
   width: $cardWidth;
+}
+
+.cards {
+  width: calc(100% + 40px);
+  padding: 0 20px;
+  height: calc(100vh - #{$headerHeight} - #{$sitePadding * 2} - #{$defaultSpacing} - 29px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $black;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $accent;
+    border-radius: 4px;
+    border-right: 3px solid lighten($color: $accent, $amount: 7.5);
+  }
 }
 
 .card:not(:last-child) {
