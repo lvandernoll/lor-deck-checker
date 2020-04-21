@@ -19,6 +19,7 @@ interface Props {
 const DeckTrackerPage: React.FC<Props> = ({ setsDataState, requestSetsData }) => {
   const [deckCode] = useState<string>('CEBACAICHEDACBIEDYQDAMJUAIBQCAQCAMYQKAIFA4FRIGRIAEBQCBIBCMLA');
   const [deckCards, setDeckCards] = useState<DeckCard[]>([]);
+  const [playedCards, setPlayedCards] = useState<DeckCard[]>([]);
 
   useEffect(() => {
     requestSetsData();
@@ -45,29 +46,43 @@ const DeckTrackerPage: React.FC<Props> = ({ setsDataState, requestSetsData }) =>
     setDeckCards(deck);
   }, [deckCode, setsDataState]);
 
+  const playCard = (cardToMove: DeckCard) => {
+    const newDeckCards = [...deckCards];
+    const newPlayedCards = [...playedCards];
+    const cardInDeck: DeckCard = newDeckCards[newDeckCards.indexOf(cardToMove)];
+    const playedCard = newPlayedCards.filter((a: DeckCard) => a.card.cardCode === cardInDeck.card.cardCode)[0];
+    // Add card to playedCards
+    if(playedCard) {
+      playedCard.count += 1;
+    } else {
+      newPlayedCards.push({
+        card: cardInDeck.card,
+        count: 1,
+      });
+    }
+    setPlayedCards(newPlayedCards);
 
-  const removeCard = (cardToMove: DeckCard) => {
-    let cardInDeck: DeckCard;
-    deckCards.forEach((card: DeckCard) => {
-      if(cardToMove === card) {
-        cardInDeck = card;
-        console.log(cardInDeck);
-        return;
-      }
-    });
+    // Remove card from deck
+    cardInDeck.count -= 1;
+    if(cardInDeck.count === 0) {
+      setTimeout(() => {
+        newDeckCards.splice(newDeckCards.indexOf(cardInDeck), 1);
+        setDeckCards(newDeckCards);
+      }, 250);
+    }
   }
 
   return (
     <>
       {deckCode}
       <div className={styles.decks}>
-        <DeckDisplay title={'Deck'} cards={deckCards} removeCard={removeCard} />
+        <DeckDisplay title={'Deck'} cards={deckCards} removeCard={playCard} />
         <div className={styles.divider}>
           <span className={styles.line} />
           <FontAwesomeIcon className={styles.icon} icon={faExchangeAlt} />
           <span className={styles.line} />
         </div>
-        <DeckDisplay title={'Played'} cards={[]} />
+        <DeckDisplay title={'Played'} cards={playedCards} moveLeft />
       </div>
     </>
   )

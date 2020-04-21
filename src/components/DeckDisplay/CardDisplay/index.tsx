@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DeckCard } from 'interfaces';
 import styles from './CardDisplay.module.scss';
 
@@ -35,6 +35,13 @@ const CardDisplay: React.FC<Props> = ({ card, count, moveLeft }) => {
   const [animationClass] = useState<string>(moveLeft ? styles.moveLeft : styles.moveRight);
   const [animationElements, setAnimationElements] = useState<JSX.Element[]>([]);
   const [animationCount, setAnimationCount] = useState<number>(0);
+  const [timeouts, setTimeouts] = useState<NodeJS.Timeout[]>([]);
+
+  useEffect(() => () => {
+    timeouts.forEach((timeout: NodeJS.Timeout) => {
+      clearTimeout(timeout);
+    });
+  });
 
   const animateCard = () => {
     const newAnimationElements = [...animationElements];
@@ -42,11 +49,11 @@ const CardDisplay: React.FC<Props> = ({ card, count, moveLeft }) => {
     setAnimationElements(newAnimationElements);
     setAnimationCount(animationCount + 1);
 
-    setTimeout(() => {
+    setTimeouts([...[...timeouts], setTimeout(() => {
       const newAnimationElements = [...animationElements];
       newAnimationElements.shift();
       setAnimationElements(newAnimationElements);
-    }, 500);
+    }, 500)]);
   }
 
   return (

@@ -17,7 +17,7 @@ const DeckDisplay: React.FC<Props> = ({ title, cards, moveLeft, removeCard }) =>
       {
         [...cards.sort((a: DeckCard, b: DeckCard) => a.card.cost - b.card.cost)].map((card: DeckCard) =>
           <div onClick={(e: React.MouseEvent) => {removeCard && removeCard(card)}} className={styles.card} key={card.card.cardCode}>
-            <CardDisplay {...card} />
+            <CardDisplay {...card} moveLeft={moveLeft} />
           </div>)
       }
     </div>
