@@ -46,31 +46,42 @@ const DeckTrackerPage: React.FC<Props> = ({ setsDataState, requestSetsData }) =>
     setDeckCards(deck);
   }, [deckCode, setsDataState]);
 
-  const playCard = (cardToMove: DeckCard) => {
-    const newDeckCards = [...deckCards];
-    const newPlayedCards = [...playedCards];
-    const cardInDeck: DeckCard = newDeckCards[newDeckCards.indexOf(cardToMove)];
-    const playedCard = newPlayedCards.filter((a: DeckCard) => a.card.cardCode === cardInDeck.card.cardCode)[0];
-    // Add card to playedCards
-    if(playedCard) {
-      playedCard.count += 1;
+  const moveCard = (
+    cardToMove: DeckCard,
+    moveFrom: DeckCard[],
+    moveTo: DeckCard[],
+    moveFromSetter: (newMoveFrom: DeckCard[]) => void,
+    moveToSetter: (newMoveTo: DeckCard[]) => void
+  ) => {
+    const moveFromCard: DeckCard = moveFrom[moveFrom.indexOf(cardToMove)];
+    const moveToCard = moveTo.filter((a: DeckCard) => a.card.cardCode === moveFromCard.card.cardCode)[0];
+
+    // Add card to new location
+    if(moveToCard) {
+      moveToCard.count += 1;
     } else {
-      newPlayedCards.push({
-        card: cardInDeck.card,
+      moveTo.push({
+        card: moveFromCard.card,
         count: 1,
       });
     }
-    setPlayedCards(newPlayedCards);
+    moveToSetter(moveTo);
 
-    // Remove card from deck
-    cardInDeck.count -= 1;
-    if(cardInDeck.count === 0) {
+    // Remove card from current location
+    moveFromCard.count -= 1;
+    if(moveFromCard.count === 0) {
       setTimeout(() => {
-        newDeckCards.splice(newDeckCards.indexOf(cardInDeck), 1);
-        setDeckCards(newDeckCards);
+        moveFrom.splice(moveFrom.indexOf(moveFromCard), 1);
+        moveFromSetter(moveFrom);
       }, 250);
     }
   }
+
+  const playCard = (cardToMove: DeckCard) =>
+    moveCard(cardToMove, [...deckCards], [...playedCards], setDeckCards, setPlayedCards);
+
+  const returnCard = (cardToMove: DeckCard) =>
+    moveCard(cardToMove, [...playedCards], [...deckCards], setPlayedCards, setDeckCards);
 
   return (
     <>
@@ -82,7 +93,7 @@ const DeckTrackerPage: React.FC<Props> = ({ setsDataState, requestSetsData }) =>
           <FontAwesomeIcon className={styles.icon} icon={faExchangeAlt} />
           <span className={styles.line} />
         </div>
-        <DeckDisplay title={'Played'} cards={playedCards} moveLeft />
+        <DeckDisplay title={'Played'} cards={playedCards} removeCard={returnCard} moveLeft />
       </div>
     </>
   )
