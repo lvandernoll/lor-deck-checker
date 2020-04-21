@@ -3,7 +3,8 @@ export interface Card {
   set: string,
   name: string,
   regionRef: string, // DE | FR | IO | NX | PZ | SI
-  type: string, // Spell | Champion | Unit
+  supertype: string, // Champion
+  type: string, // Spell | Unit
   cost: number,
 }
 
