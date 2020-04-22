@@ -6,26 +6,52 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { DeckCard, Set, Card } from 'interfaces';
 import { State } from 'redux/reducers';
-import { requestSetsData } from 'redux/actions';
+import { requestSetsData, requestGameActivityDeck } from 'redux/actions';
 import { SetsDataState } from 'redux/reducers/setsData';
 import DeckDisplay from 'components/DeckDisplay';
 import styles from './DeckTracker.module.scss';
+import { GameActivityState } from 'redux/reducers/gameActivity';
 
 interface Props {
+  gameActivityState: GameActivityState,
+  requestGameActivityDeck: () => Object,
   setsDataState: SetsDataState,
   requestSetsData: () => Object,
 }
 
-const DeckTrackerPage: React.FC<Props> = ({ setsDataState, requestSetsData }) => {
-  const [deckCode] = useState<string>('CEBACAICHEDACBIEDYQDAMJUAIBQCAQCAMYQKAIFA4FRIGRIAEBQCBIBCMLA');
+const DeckTrackerPage: React.FC<Props> = ({ gameActivityState, requestGameActivityDeck, setsDataState, requestSetsData }) => {
+  const [deckCode, setDeckCode] = useState<string>(gameActivityState.gameActivity.deckCode || '');
   const [deckCards, setDeckCards] = useState<DeckCard[]>([]);
   const [playedCards, setPlayedCards] = useState<DeckCard[]>([]);
+  const [prevGameState, setPrevGameState] = useState<string | undefined>(gameActivityState.gameActivity.gameState);
 
   useEffect(() => {
     requestSetsData();
   }, [requestSetsData]);
 
   useEffect(() => {
+    if(prevGameState !== gameActivityState.gameActivity.gameState) {
+      setPrevGameState(gameActivityState.gameActivity.gameState);
+      setPlayedCards([]);
+
+      if(gameActivityState.gameActivity.gameState === 'InProgress') {
+        requestGameActivityDeck();
+      }
+      updateDeck();
+    }
+  }, [gameActivityState.gameActivity.gameState, requestGameActivityDeck, prevGameState]);
+
+  useEffect(() => {
+    if(gameActivityState.gameActivity.deckCode) {
+      setDeckCode(gameActivityState.gameActivity.deckCode);
+    }
+  }, [gameActivityState.gameActivity.deckCode]);
+
+  useEffect(() => {
+    updateDeck();
+  }, [deckCode, setsDataState]);
+
+  const updateDeck = () => {
     const lorDeck: LoRCard[] = decode(deckCode);
     const deck: DeckCard[] = [];
 
@@ -44,7 +70,7 @@ const DeckTrackerPage: React.FC<Props> = ({ setsDataState, requestSetsData }) =>
     });
 
     setDeckCards(deck);
-  }, [deckCode, setsDataState]);
+  }
 
   const moveCard = (
     cardToMove: DeckCard,
@@ -94,7 +120,7 @@ const DeckTrackerPage: React.FC<Props> = ({ setsDataState, requestSetsData }) =>
   )
 }
 
-const mapStateToProps = (state: State) => ({ setsDataState: state.setsData });
-const mapDispatchToProps = (dispatch: any) => bindActionCreators({ requestSetsData }, dispatch);
+const mapStateToProps = (state: State) => ({ gameActivityState: state.gameActivity, setsDataState: state.setsData });
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({ requestSetsData, requestGameActivityDeck }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeckTrackerPage);

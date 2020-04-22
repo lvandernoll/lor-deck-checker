@@ -41,5 +41,3 @@ export const setsDataReducer = (
       return state;
   }
 }
-
-export default [];

@@ -17,3 +17,10 @@ export interface Set {
   code: string,
   cards: Card[],
 }
+
+export interface GameActivity {
+  playerName?: string | null,
+  opponentName?: string | null,
+  gameState?: string, // Not connected | In Progress | Menus
+  deckCode?: string,
+}

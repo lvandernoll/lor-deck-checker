@@ -1,9 +1,18 @@
-import { Set } from 'interfaces';
+import { Set, GameActivity } from 'interfaces';
 
-export interface SetsDataAction {
+interface GenericAction {
   type: string,
+}
+export interface SetsDataAction extends GenericAction {
   payload: {
     errorMessage?: string,
     setsData?: Set[],
+  },
+}
+
+export interface GameActivityAction extends GenericAction {
+  payload: {
+    errorMessage?: string,
+    gameActivity: GameActivity,
   },
 }
