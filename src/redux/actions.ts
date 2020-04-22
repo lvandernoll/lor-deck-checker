@@ -4,10 +4,11 @@ export const REQUEST_SETS_DATA         = 'REQUEST_SETS_DATA';
 export const REQUEST_SETS_DATA_SUCCESS = 'REQUEST_SETS_DATA_SUCCESS';
 export const REQUEST_SETS_DATA_FAILED  = 'REQUEST_SETS_DATA_FAILED';
 
-export const REQUEST_GAME_ACTIVITY         = 'REQUEST_GAME_ACTIVITY';
-export const REQUEST_GAME_ACTIVITY_DECK    = 'REQUEST_GAME_ACTIVITY_DECK';
-export const REQUEST_GAME_ACTIVITY_SUCCESS = 'REQUEST_GAME_ACTIVITY_SUCCESS';
-export const REQUEST_GAME_ACTIVITY_FAILED  = 'REQUEST_GAME_ACTIVITY_FAILED';
+export const REQUEST_GAME_ACTIVITY              = 'REQUEST_GAME_ACTIVITY';
+export const REQUEST_GAME_ACTIVITY_SUCCESS      = 'REQUEST_GAME_ACTIVITY_SUCCESS';
+export const REQUEST_GAME_ACTIVITY_DECK         = 'REQUEST_GAME_ACTIVITY_DECK';
+export const REQUEST_GAME_ACTIVITY_DECK_SUCCESS = 'REQUEST_GAME_ACTIVITY_DECK_SUCCESS';
+export const REQUEST_GAME_ACTIVITY_FAILED       = 'REQUEST_GAME_ACTIVITY_FAILED';
 
 
 export const requestSetsData = () => ({ type: REQUEST_SETS_DATA });
@@ -16,5 +17,6 @@ export const requestSetsDataFailed = (errorMessage: string) => ({ type: REQUEST_
 
 export const requestGameActivity = () => ({ type: REQUEST_GAME_ACTIVITY });
 export const requestGameActivityDeck = () => ({ type: REQUEST_GAME_ACTIVITY_DECK });
+export const requestGameActivityDeckSuccess = (deckCode: string) => ({ type: REQUEST_GAME_ACTIVITY_DECK_SUCCESS, payload: { gameActivity: { deckCode } } });
 export const requestGameActivitySuccess = (gameActivity: GameActivity) => ({ type: REQUEST_GAME_ACTIVITY_SUCCESS, payload: { gameActivity } });
 export const requestGameActivityFailed = (errorMessage: string) => ({ type: REQUEST_GAME_ACTIVITY_FAILED, payload: { errorMessage } });

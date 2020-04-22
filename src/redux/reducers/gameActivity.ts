@@ -1,4 +1,4 @@
-import { REQUEST_GAME_ACTIVITY, REQUEST_GAME_ACTIVITY_SUCCESS, REQUEST_GAME_ACTIVITY_FAILED, REQUEST_GAME_ACTIVITY_DECK } from '../actions';
+import { REQUEST_GAME_ACTIVITY, REQUEST_GAME_ACTIVITY_SUCCESS, REQUEST_GAME_ACTIVITY_FAILED, REQUEST_GAME_ACTIVITY_DECK, REQUEST_GAME_ACTIVITY_DECK_SUCCESS } from '../actions';
 import { GameActivityAction } from 'redux/interfaces';
 import { GameActivity } from 'interfaces';
 
@@ -35,7 +35,7 @@ export const gameActivityReducer = (
         isLoading: true,
       };
     case REQUEST_GAME_ACTIVITY_SUCCESS:
-      const { playerName, opponentName, gameState, deckCode } = action.payload.gameActivity;
+      const { playerName, opponentName, gameState } = action.payload.gameActivity;
       return {
         isLoading: false,
         error: false,
@@ -43,7 +43,18 @@ export const gameActivityReducer = (
           playerName: playerName || state.gameActivity.playerName,
           opponentName: opponentName || state.gameActivity.opponentName,
           gameState: gameState || state.gameActivity.gameState,
-          deckCode: deckCode || state.gameActivity.deckCode,
+          deckCode: state.gameActivity.deckCode,
+        }
+      };
+    case REQUEST_GAME_ACTIVITY_DECK_SUCCESS:
+      return {
+        isLoading: false,
+        error: false,
+        gameActivity: {
+          playerName: state.gameActivity.playerName,
+          opponentName: state.gameActivity.opponentName,
+          gameState: state.gameActivity.gameState,
+          deckCode: action.payload.gameActivity.deckCode,
         }
       };
     case REQUEST_GAME_ACTIVITY_FAILED:

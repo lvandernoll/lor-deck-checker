@@ -26,10 +26,7 @@ export const getGameActivityDeck = async () => {
     const data = await setsResponse.json();
 
     if(data.DeckCode) {
-      const parsedData: GameActivity = {
-        deckCode: data.DeckCode,
-      };
-      return parsedData;
+      return data.DeckCode;
     } else {
       return false;
     }

@@ -3,7 +3,7 @@ import { SetsDataAction, GameActivityAction } from './interfaces';
 import { getSetsData, getGameActivity, getGameActivityDeck } from 'api';
 import {
   requestSetsDataSuccess, requestSetsDataFailed, REQUEST_SETS_DATA,
-  requestGameActivitySuccess, requestGameActivityFailed, REQUEST_GAME_ACTIVITY, REQUEST_GAME_ACTIVITY_DECK
+  requestGameActivitySuccess, requestGameActivityFailed, REQUEST_GAME_ACTIVITY, REQUEST_GAME_ACTIVITY_DECK, requestGameActivityDeckSuccess
 } from './actions';
 
 function* fetchGameActivity(action: GameActivityAction) {
@@ -23,7 +23,7 @@ function* fetchGameActivityDeck(action: GameActivityAction) {
   try {
     const gameActivity = yield call(getGameActivityDeck);
     if(gameActivity) {
-      yield put(requestGameActivitySuccess(gameActivity));
+      yield put(requestGameActivityDeckSuccess(gameActivity));
     } else {
       throw 'Request failed';
     }

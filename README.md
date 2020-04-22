@@ -1,4 +1,4 @@
-# Legends of Runeterra Deck Checker
+# Legends of Runeterra Deck Tracker
 ## Installation
 Requirements:
 - Node >= 8.10
