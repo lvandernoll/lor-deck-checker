@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import { GameActivityState } from 'redux/reducers/gameActivity';
 import { requestGameActivity, requestGameActivityDeckSuccess } from 'redux/actions';
 import styles from './Header.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner, faPlug, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   gameActivityState: GameActivityState,
@@ -42,16 +44,27 @@ const Header: React.FC<Props> = ({ gameActivityState, requestGameActivity, reque
   return (
     <header className={styles.wrapper}>
       <span>LoR Deck Tracker</span>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className={styles.menu}>
         {!isConnected && <>
-          <input type='text' value={deckCode} onChange={(e) => setDeckCode(e.currentTarget.value)} placeholder='Deck code' />
-          <span>or</span>
-          <button type='button' onClick={startCalls}>Connect</button>
+          <input type='text' className={styles.input} value={deckCode} onChange={(e) => setDeckCode(e.currentTarget.value)} placeholder='Enter deck code' />
+          <button className={styles.button}><FontAwesomeIcon icon={faPaperPlane} /></button>
+          <span className={styles.seperator}>or</span>
+          <span onClick={startCalls} className={styles.button}>
+            <FontAwesomeIcon icon={faPlug} />
+            <span>Connect</span>
+          </span>
         </>}
         {isConnected && <>
-          <span>{gameActivityState.gameActivity.gameState}</span>
-          {gameActivityState.gameActivity.gameState === 'Not connected' && <span>Loading..</span>}
-          <button type='button' onClick={stopCalls}>Disconnect</button>
+          {gameActivityState.gameActivity.gameState === 'Not connected'
+          ? <FontAwesomeIcon icon={faSpinner} spin className={styles.spinner} />
+          : <span className={styles.gameState}>{gameActivityState.gameActivity.gameState}</span>
+          }
+          <span onClick={stopCalls} className={styles.button}>
+            <span className={styles.disconnect}>
+              <FontAwesomeIcon icon={faPlug} />
+            </span>
+            <span>Disconnect</span>
+          </span>
         </>}
       </form>
     </header>

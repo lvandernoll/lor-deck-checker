@@ -94,6 +94,7 @@
   background-size: contain;
   background-position-x: right;
   font-size: 1.3rem;
+  text-shadow: 3px 3px 2px $black;
 
   &::before, &::after {
     content: '';
