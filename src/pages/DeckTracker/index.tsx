@@ -113,7 +113,7 @@ const DeckTrackerPage: React.FC<Props> = ({ gameActivityState, requestGameActivi
     <div className={styles.decks}>
       <DeckDisplay title={'Deck'} cards={deckCards} removeCard={playCard} />
       <div className={styles.divider}>
-        <FontAwesomeIcon icon={faExchangeAlt} />
+        <FontAwesomeIcon icon={faExchangeAlt} className={styles.icon} title='Reset' onClick={() => {updateDeck(); setPlayedCards([]);}}/>
       </div>
       <DeckDisplay title={'Played'} cards={playedCards} removeCard={returnCard} moveLeft />
     </div>
